@@ -1,0 +1,45 @@
+
+syntax = "proto3";
+
+package mfr;
+
+
+//service definiton
+service mfr_command{
+        rpc map_command(commands) returns (result) {}
+        rpc parallelize_command(par_command) returns (result) {}
+        rpc simple_handshake_command(dummy)returns (result){}
+}
+
+//parallelize command
+message par_command{
+        repeated string list = 1;
+        bool isfile = 2;
+        string type = 3;
+        int64 no_of_partitions = 4;
+}
+
+//map message
+message command{
+        repeated string code_list = 1;
+        repeated string type_list = 2;
+        string resultType = 3;
+        bool isTuple = 4;
+}
+
+message commands{
+        repeated command command_list = 1;
+        repeated command command_list_tuple = 3;
+        bool isFile = 4;
+        string action_type = 5;
+        int64 take_arg = 6;
+}
+
+//response message
+message result{
+        repeated string list = 1;
+}
+
+message dummy{
+     int64 k=1;
+}
